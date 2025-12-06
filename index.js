@@ -24,17 +24,17 @@ app.use(
 
 app.use(cookieParser());
 
+// Database Connection Middleware
 app.use(async (req, res, next) => {
   try {
     await connection();
     next();
   } catch (err) {
-    // 👇 ADD THIS LINE to see the real error in your terminal or Vercel logs
-    console.error("❌ Database Error Details:", err); 
-    
+    console.error("❌ Database Error Details:", err);
     return res.status(500).json({ error: "Database connection failed" });
   }
 });
+
 /* ------------------ SIGNUP ------------------ */
 
 app.post("/signup", async (req, res) => {
@@ -67,6 +67,7 @@ app.post("/signup", async (req, res) => {
 
     res.send({ success: true, message: "Signup successful" });
   } catch (err) {
+    console.error(err);
     res.send({ success: false, message: "Server error" });
   }
 });
@@ -100,6 +101,7 @@ app.post("/login", async (req, res) => {
 
     res.send({ success: true, message: "Login successful" });
   } catch (err) {
+    console.error(err);
     res.send({ success: false, message: "Server error" });
   }
 });
