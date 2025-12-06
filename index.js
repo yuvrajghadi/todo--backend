@@ -29,10 +29,12 @@ app.use(async (req, res, next) => {
     await connection();
     next();
   } catch (err) {
+    // 👇 ADD THIS LINE to see the real error in your terminal or Vercel logs
+    console.error("❌ Database Error Details:", err); 
+    
     return res.status(500).json({ error: "Database connection failed" });
   }
 });
-
 /* ------------------ SIGNUP ------------------ */
 
 app.post("/signup", async (req, res) => {
