@@ -6,6 +6,10 @@ dotenv.config();
 const url = process.env.MONGO_URL;
 const dbName = "node-project";
 
+/* 👇 THIS IS THE MISSING LINE 👇 */
+export const collectionName = "tasks"; 
+/* 👆 */
+
 let client;
 let db;
 
