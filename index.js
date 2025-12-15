@@ -59,11 +59,13 @@ app.post("/signup", async (req, res) => {
       expiresIn: "5d",
     });
 
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: true,      // ✅ REQUIRED FOR VERCEL
-      sameSite: "none",  // ✅ REQUIRED FOR VERCEL
-    });
+res.cookie("token", token, {
+  httpOnly: true,
+  secure: true,        // REQUIRED on Vercel (HTTPS)
+  sameSite: "none",    // REQUIRED for cross-site
+  path: "/",           // IMPORTANT
+});
+
 
     res.send({ success: true, message: "Signup successful" });
   } catch (err) {
@@ -93,11 +95,13 @@ app.post("/login", async (req, res) => {
       expiresIn: "5d",
     });
 
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: true,
-      sameSite: "none",
-    });
+res.cookie("token", token, {
+  httpOnly: true,
+  secure: true,        // REQUIRED on Vercel (HTTPS)
+  sameSite: "none",    // REQUIRED for cross-site
+  path: "/",           // IMPORTANT
+});
+
 
     res.send({ success: true, message: "Login successful" });
   } catch (err) {
